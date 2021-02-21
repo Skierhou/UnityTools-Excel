@@ -1,4 +1,5 @@
-﻿public abstract class Singleton<T>
+﻿
+public abstract class Singleton<T>
 {
     private static T _ServiceContext;
     private readonly static object lockObj = new object();

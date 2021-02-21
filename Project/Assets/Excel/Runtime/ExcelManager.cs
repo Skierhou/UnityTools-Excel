@@ -9,16 +9,19 @@ namespace Excel
     public partial class ExcelManager: Singleton<ExcelManager>
     {
         private Dictionary<string, IContainer> m_InfosMap = null;
+        private IHelper m_Helper;
 
         protected override void Initialize()
         {
             m_InfosMap = new Dictionary<string, IContainer>();
+            m_Helper = new Helper();
+
             Stopwatch sw = new Stopwatch();
             sw.Start();
             IEnumerator<Type> it = GetInterfaceType((typeof(IMainKey))).GetEnumerator();
             while (it.MoveNext())
             {
-                ParseData(it.Current.Name);
+                m_Helper.ReadData(it.Current.Name);
             }
             sw.Stop();
             UnityEngine.Debug.Log(string.Format("加载所有Excel用时：{0} ms", sw.ElapsedMilliseconds));
